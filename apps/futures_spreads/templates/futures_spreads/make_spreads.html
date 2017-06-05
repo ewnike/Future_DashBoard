@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Make_Spreads</title>
+    <style>
+    .container {
+      /*display: inline-block;*/
+      /*vertical-align: top;*/
+      margin-top: -110px;
+      margin_left: 300px;
+      width: 500px;
+      height:500px;
+      border-color: black;
+      border-style: : solid;
+      border-width: 2px;
+    }
+    </style>
+  </head>
+  <body>
+    <a href="{% url 'futures_spreads:index'%}">Home</a>
+    <a href="{% url 'futures_spreads:add_future' %}">Add Future</a>
+    <center>
+      <h1>{{future.name}}</h1>
+      <h3>Front Month: {{future.symbol}}</h3>
+    </center>
+      <h4>Create Spreads with Front Month {{future.symbol}}:</h4>
+      <table style="border-spacing: 15px;">
+        <thead>
+          <tr>
+            <th>Commodity</th>
+            <th>Symbol</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for b in back %}
+          <tr>
+            <td>{{b.name}}</td>
+            <td><a href="{% url 'futures_spreads:assign'  back_id=b.id front_id=future.id %}">{{b.symbol}}</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <center>
+      <div class = "container">
+      <table>
+        <thead>
+          <tr>
+            <th style= "padding: 6px;">Future Spread</th>
+            <th style= "padding: 6px;">Graph</th>
+            <th style= "padding: 6px;">VPIN</th>
+            <th style= "padding: 6px;">F_VWAP</th>
+              <th style= "padding: 6px;">S_VWAP</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for f in front %}
+          <tr>
+            <td><a href="{% url 'futures_spreads:remove'  back_id=f.back.id front_id=future.id %}">{{future.symbol}} / {{f.back.symbol}}</a></td>
+            <td  style= "padding: 6px;"><a href="#">Graph</a></td>
+            <td  style= "padding: 6px;"><a href="#">VPIN</a></td>
+            <td  style= "padding: 6px;"><a href="#">F_VWAP</a></td>
+            <td  style= "padding: 6px;"><a href="#">S_VWAP</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </center>
+    </div>
+
+    </body>
+  </html>

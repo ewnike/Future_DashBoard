@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Spreads</title>
+  </head>
+  <body>
+
+    <!-- {% for future in futures %}
+    Future Object: {{future.id}}
+    <ul>
+      <li>{{future.name}}</li>
+      <li>{{future.symbol}}</li>
+    <ul>
+    {% endfor %} -->
+    <a href="{% url 'futures_spreads:index'%}">Home</a>
+    <a href="{% url 'futures_spreads:add_future' %}">Add Future</a>
+    <center>
+    <h1>Spreads</h1>
+    <h2>Create a Spread</h2>
+    <form action="{% url 'futures_spreads:create_spread' %}" method="post">
+        {% csrf_token %}
+      Front Month: <br>
+      <select name="front"><br>
+         <option selected="selected" name= 'front' disabled>Select from listed futures</option>
+           {% for future in futures %}
+             <option value="{{future.id}}">{{future.symbol}}</option>
+           {% endfor %}
+       </select><br><br>
+       Back Month: <br>
+       <select name="back"><br>
+         <option selected="selected" name = 'back' disabled>Select from listed futures</option>
+           {% for future in futures %}
+             <option value="{{future.id}}"> {{future.symbol}}</option>
+           {% endfor %}
+       </select><br><br>
+       <input type="submit"  value="Create Spread"><br><br>
+    </form>
+    <table style="border-spacing: 15px;">
+      <thead>
+          <tr>
+            <th>Commodity</th>
+            <th>Spread</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for spread in spreads %}
+          <tr>
+            <td>{{spread.front.name}}</td>
+            <td>{{spread.front.symbol}}/{{spread.back.symbol}}</td>       
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+  </center>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Popup Form</title>
+  </head>
+  <body>
+    <h1>Add Future</h1>
+
+        <form action ="{% url 'futures_spreads:add_symbols' %}" method="POST">
+
+          {% csrf_token %}
+          Commodity:<br>
+          <input type="text" name="name"  ><br>
+          Symbol:<br>
+          <input type="text" name="symbol"  ><br><br>
+          <input  type= "submit"  value= "Enter"><br><br>
+        </form>
+      <a href="{% url 'futures_spreads:spreads'%}">Spread Page</a>
+  </body>
+</html>
